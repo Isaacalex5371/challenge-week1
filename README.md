@@ -1,91 +1,79 @@
-# Financial News & Stock Price Integration (Week 1)
+# 1. Overwrite the README with professional content
+cat > README.md <<EOL
+# 📈 Financial News Sentiment & Stock Price Integration
 
-**Predicting Price Moves with News Sentiment**
+## 📖 Project Overview
+This project, developed for **Nova Financial Solutions**, aims to enhance predictive analytics by correlating financial news sentiment with stock market movements. By integrating **Natural Language Processing (NLP)** on news headlines with **Quantitative Finance** indicators, we seek to identify actionable investment strategies.
 
-This repository contains the solution for the Week 1 Challenge at Nova Financial Solutions. The project focuses on Data Engineering, Financial Analytics, and Machine Learning Engineering to discover correlations between news sentiment and stock market movements.
+## 🎯 Business Objective
+- **Sentiment Analysis:** Quantify the emotional tone of financial news headers.
+- **Correlation Analysis:** Measure the statistical relationship between news sentiment and daily stock returns (e.g., AAPL).
+- **Technical Analysis:** Apply indicators like **SMA** (Simple Moving Average) and **RSI** (Relative Strength Index) to identify market trends.
 
-## 📂 Project Structure
+## 📂 Repository Structure
+\`\`\`
+├── .github/workflows  # CI/CD Pipelines
+├── data/              # Raw data (Not tracked by Git)
+├── notebooks/         # Jupyter Notebooks for EDA and Analysis
+├── src/               # Source code for modular processing
+│   ├── loader.py      # Data ingestion logic
+│   └── analysis.py    # Statistical and financial calculations
+├── scripts/           # Execution scripts
+├── tests/             # Unit tests
+├── requirements.txt   # Python dependencies
+└── README.md          # Project documentation
+\`\`\`
 
-The project follows a modular Python structure to ensure reproducibility and scalability:
+## ⚙️ Installation & Setup
 
-├── .github/ # CI/CD workflows
-├── data/ # Raw and processed data
-├── notebooks/ # Jupyter notebooks for exploration
-├── src/ # Source code for data processing and analysis
-│ ├── init.py
-│ ├── loader.py # Data loading logic (DataLoader class)
-│ └── analysis.py # Analysis logic (NewsAnalyzer, StockAnalyzer classes)
-├── tests/ # Unit tests
-├── requirements.txt # Python dependencies
-└── README.md # Project documentation
+**1. Clone the repository**
+\`\`\`bash
+git clone https://github.com/YOUR-USERNAME/challenge-week1.git
+cd challenge-week1
+\`\`\`
 
+**2. Set up the Python environment**
+\`\`\`bash
+python -m venv venv
+source venv/bin/activate   # Windows: venv\\Scripts\\activate
+\`\`\`
 
-## 🚀 Key Features
-
-### 1. Exploratory Data Analysis (EDA)
-- **Headline Analysis:** Statistical breakdown of headline lengths.
-- **Publisher Insights:** Identification of top publishers and contribution frequency.
-- **Time Series Trends:** Analysis of publication frequency over time to identify market-moving events.
-
-### 2. Quantitative Analysis
-- **Technical Indicators:** Implementation of financial indicators using `TA-Lib` and `pandas`.
-    - **SMA (Simple Moving Average):** 20-day window.
-    - **RSI (Relative Strength Index):** 14-day window to detect overbought/oversold conditions.
-- **Visualization:** Automated generation of stock price vs. indicator plots.
-
-## 🛠 Installation & Setup
-
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/Isaacalex5371/challenge-week1
-   cd challenge-week1
-
-   1.Set up the virtual environment:
-   python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-2.Install dependencies:
+**3. Install dependencies**
+\`\`\`bash
 pip install -r requirements.txt
+\`\`\`
 
-📊 How to Run
-The analysis is modularized. You can run the analysis workflow directly from the notebooks or scripts.
-Example Usage (Python):
-from src.loader import DataLoader
-from src.analysis import NewsAnalyzer, StockAnalyzer
+## 🚀 Usage Guide
 
-# 1. Load Data
-loader = DataLoader('../data/raw')
-news_df = loader.load_news_data('raw_analyst_ratings.csv')
+**Running the Analysis:**
+The core analysis is performed in Jupyter Notebooks using our modular \`src\` library.
 
-# 2. Analyze News
-news_analyzer = NewsAnalyzer(news_df)
-print(news_analyzer.get_headline_stats())
-news_analyzer.plot_top_publishers()
+1. Launch Jupyter:
+   \`\`\`bash
+   jupyter notebook notebooks/task1_analysis.ipynb
+   \`\`\`
+2. The notebook will:
+   - Load the raw news dataset.
+   - Perform EDA (Headline statistics, Publisher frequency).
+   - Download stock data (via YFinance).
+   - Calculate and visualize Technical Indicators (SMA, RSI).
 
-# 3. Analyze Stocks
-aapl_df = loader.load_stock_data('AAPL')
-stock_analyzer = StockAnalyzer(aapl_df)
-stock_analyzer.add_moving_average(window=20)
-stock_analyzer.add_rsi(window=14)
-
-📈 Visualizations
-The project automatically generates insights such as:
-.top_publishers.png: Bar chart of most active news sources.
-.publication_trend.png: Time-series view of news volume.
-.aapl_sma.png: AAPL price overlay with 20-day SMA.
-.aapl_rsi.png: RSI momentum indicator.
-🧪 Testing
-Run the unit tests to ensure system stability:
-
+**Running Tests:**
+To ensure data integrity and logic correctness:
+\`\`\`bash
 pytest tests/
+\`\`\`
 
-👤 Author
-yishak alemayehu 
-Week 1 - 10 Academy Challenge
-code
-Code
-### Why this is better:
-*   **It highlights `src`**: The tutors love seeing that you didn't just dump everything in a notebook.
-*   **It explains the "How to Run"**: It shows the exact code snippet you are using, which proves you understand your own code.
-*   **It lists the images**: Since your code saves `.png` files, the README mentions them as "Deliverables".
+## 📊 Key Insights (Week 1)
+- **Publisher Analysis:** Identified top contributors to the financial news corpus.
+- **Temporal Trends:** Mapped publication frequency to identifying peak news hours.
+- **Financial Metrics:** successfully implemented SMA(20) and RSI(14) to track AAPL momentum.
 
+## 👤 Author
+**Week 1 Challenge Team**
+EOL
+
+# 2. Add, Commit, and Push
+git add README.md
+git commit -m "docs: update README with detailed project purpose, setup guide, and usage instructions"
+git push origin task-1
