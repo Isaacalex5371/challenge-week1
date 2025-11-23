@@ -1,13 +1,31 @@
 import pandas as pd
-import yfinance as yf
 import os
 
 class DataLoader:
+    """
+    A class to handle loading and basic processing of financial news 
+    and stock market datasets.
+    """
+    
     def __init__(self, data_path):
+        """
+        Initializes the DataLoader with the path to the data directory.
+        
+        Args:
+            data_path (str): Path to the folder containing data files.
+        """
         self.data_path = data_path
 
     def load_news_data(self, filename):
-        """Loads the financial news dataset."""
+        """
+        Loads the news dataset from a CSV file.
+        
+        Args:
+            filename (str): Name of the CSV file (e.g., 'raw_analyst_rating.csv').
+            
+        Returns:
+            pd.DataFrame: Loaded data with converted date column.
+        """
         file_path = os.path.join(self.data_path, filename)
         if not os.path.exists(file_path):
             raise FileNotFoundError(f"File not found: {file_path}")
@@ -15,19 +33,33 @@ class DataLoader:
         print(f"Loading news data from {file_path}...")
         df = pd.read_csv(file_path)
         
-        # Convert date column to datetime
+        # Convert date to datetime immediately to ensure data quality
         if 'date' in df.columns:
             df['date'] = pd.to_datetime(df['date'], errors='coerce', utc=True)
             
         return df
 
-    def load_stock_data(self, ticker, start_date="2020-01-01", end_date="2024-01-01"):
-        """Downloads stock data from Yahoo Finance."""
-        print(f"Downloading stock data for {ticker}...")
-        stock_data = yf.download(ticker, start=start_date, end=end_date)
+    def load_stock_data(self, stock_symbol):
+        """
+        Loads stock data for a specific symbol.
         
-        # Handle MultiIndex columns if they exist (yfinance update)
-        if isinstance(stock_data.columns, pd.MultiIndex):
-            stock_data.columns = stock_data.columns.get_level_values(0)
+        Args:
+            stock_symbol (str): Ticker symbol (e.g., 'AAPL').
             
-        return stock_data
+        Returns:
+            pd.DataFrame: Stock data.
+        """
+        # Construct path assuming yfinance_data folder structure
+        file_path = os.path.join(self.data_path, 'yfinance_data', f'{stock_symbol}.csv')
+        
+        if not os.path.exists(file_path):
+            raise FileNotFoundError(f"Stock file not found for: {stock_symbol}")
+
+        print(f"Loading stock data for {stock_symbol}...")
+        df = pd.read_csv(file_path)
+        
+        if 'Date' in df.columns:
+            df['Date'] = pd.to_datetime(df['Date'])
+            df.set_index('Date', inplace=True)
+            
+        return df
