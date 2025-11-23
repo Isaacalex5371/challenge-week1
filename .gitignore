@@ -1,0 +1,9 @@
+﻿__pycache__/
+*.ipynb_checkpoints
+.DS_Store
+.vscode/
+*.csv
+*.zip
+*.png
+.venv
+data/
